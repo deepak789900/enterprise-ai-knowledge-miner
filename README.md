@@ -1,103 +1,102 @@
 # 🧠 Enterprise AI Knowledge Miner & Recommendation System
 
-An intelligent system that parses uploaded documents, generates summaries, extracts keywords and named entities, indexes them into Elasticsearch, and provides full-text search — all powered by AI/NLP.
+An AI-powered system designed to extract, summarize, and index knowledge from enterprise documents. It enables fast, intelligent document retrieval using advanced NLP techniques, keyword extraction, named entity recognition (NER), and search indexing via Elasticsearch.
 
-## 🚀 Features
+---
 
-- Upload documents (PDF, DOCX, TXT)
-- Automatically:
-  - Parse file content
-  - Generate AI summary
-  - Extract top keywords (via TF-IDF)
-  - Identify named entities (NER)
-- Store metadata in PostgreSQL
-- Index documents in Elasticsearch for search
-- Search by file name, content, or summary
-- Built-in deduplication and CRUD operations
-- Frontend UI (React) [Coming soon...]
+## 🎯 Project Aim
+
+To develop an intelligent enterprise document mining system that can:
+- Automatically extract meaningful insights from uploaded files
+- Provide summaries, keywords, and named entities
+- Allow full-text document search
+- Serve as a foundation for document-based knowledge management
+
+---
+
+## ✅ Objectives
+
+- ✅ Upload and parse documents (PDF, DOCX, TXT)
+- ✅ Extract content and summarize using AI
+- ✅ Extract top keywords using TF-IDF
+- ✅ Extract named entities using NLP (NER)
+- ✅ Store documents and metadata in PostgreSQL
+- ✅ Index documents in Elasticsearch for full-text search
+- ✅ Search documents by file name, content, and summary
+- ✅ Provide clean, modular architecture (Java + Python)
+- ⏳ Build intuitive frontend in React (in progress)
 
 ---
 
 ## 🛠️ Tech Stack
 
-| Layer           | Technology                                |
-|----------------|--------------------------------------------|
-| Backend         | Java + Spring Boot                        |
-| AI/NLP Engine   | Python + FastAPI (HuggingFace, spaCy, NLTK)|
-| Database        | PostgreSQL                                |
-| Search Engine   | Elasticsearch                             |
-| Frontend        | React.js (in progress)                    |
-| Build Tools     | Maven, pip                                |
-| Deployment      | Docker (optional), GitHub                 |
+| Component        | Technology                              |
+|------------------|------------------------------------------|
+| Backend API      | Java 17, Spring Boot                     |
+| AI/NLP Engine    | Python 3.10+, FastAPI, spaCy, NLTK       |
+| File Parsing     | Apache Tika                              |
+| AI Summarization | HuggingFace Transformers                 |
+| Keyword Extraction | TF-IDF (scikit-learn)                  |
+| NER              | spaCy                                   |
+| Search Engine    | Elasticsearch 8.x                        |
+| Database         | PostgreSQL                               |
+| Frontend         | React (in progress)                      |
+| Build Tools      | Maven, pip                               |
+| API Format       | RESTful APIs                             |
+| Deployment       | Localhost (Docker optional)              |
 
 ---
 
-## 🗂️ Project Structure
-
-enterprise-ai-knowledge-miner/
-│
-├── ai_engine/ # FastAPI-based AI microservice
-│ ├── app/
-│ │ ├── api/
-│ │ │ ├── routes_summarize.py
-│ │ │ ├── routes_keywords.py
-│ │ │ └── routes_entities.py
-│ │ ├── main.py
-│ │ └── utils/
-│ └── requirements.txt
-│
-├── ai_backend/ # Java Spring Boot backend
-│ ├── src/
-│ │ ├── main/java/com/enterprise/ai_backend/
-│ │ │ ├── controller/
-│ │ │ ├── service/
-│ │ │ ├── repository/
-│ │ │ ├── model/
-│ │ │ └── dto/
-│ │ └── resources/
-│ │ └── application.properties
-│ └── pom.xml
-│
-├── frontend/ # React frontend (WIP)
-│
-├── docker-compose.yml (optional)
-└── README.md
-
-
----
-
-## ⚙️ Backend Setup (Spring Boot)
+## 🔧 Setup Instructions
 
 ### Prerequisites
 
 - Java 17+
-- Maven
-- PostgreSQL
-- Elasticsearch (v8.x)
+- Python 3.10+
+- Node.js (for frontend, optional)
+- PostgreSQL 15+
+- Elasticsearch 8.x
 
-### Steps
+---
 
-```bash
-# 1. Navigate to backend
-cd ai_backend
+## ⚙️ Backend Setup (Java Spring Boot)
 
-# 2. Update PostgreSQL credentials in:
-# src/main/resources/application.properties
+### 1. Configure Database and Elasticsearch
 
-# 3. Build and run the application
-mvn spring-boot:run
+Edit the `application.properties`:
 
-# 1. Navigate to AI engine
-cd ai_engine
+```properties
+spring.datasource.url=jdbc:postgresql://localhost:5432/enterprise_ai
+spring.datasource.username=your_username
+spring.datasource.password=your_password
 
-# 2. Create virtual environment
+elasticsearch.host=http://localhost:9200
+ai.engine.base-url=http://localhost:8000
+
+Build and Run
+bash
+cd enterprise-ai-knowledge-miner/java-backend
+./mvnw clean install        # or: mvn clean install
+./mvnw spring-boot:run      # or: mvn spring-boot:run
+
+
+🧠 AI Engine Setup (Python FastAPI)
+1. Create and Activate Virtual Environment
+bash
+
+cd enterprise-ai-knowledge-miner/ai_engine
 python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
 
-# 3. Install dependencies
+# Activate venv:
+# On Windows:
+venv\Scripts\activate
+# On macOS/Linux:
+source venv/bin/activate
+
+2. Install Dependencies
+bash
 pip install -r requirements.txt
+3. Run the AI Engine
+bash
 
-# 4. Run the FastAPI server
 uvicorn app.main:app --reload --port 8000
-
-
